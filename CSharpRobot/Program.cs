@@ -14,13 +14,14 @@ namespace ToyRobot
         static int locY = 0; // north/south
         static void Main(string[] args)
         {
-            Console.WriteLine("Hi, Welcome to the robot challenge\nYou are a robot on a 5x5 table placed on the South West corner\nThe inputs to play the game are\nplace - Will place you on the board\nmove - Will move you one step forward in the direction you are facing\nleft - Will change your direction 90 degrees to the Left\nright - Will change your direction 90 degrees to the Right\nreport - Provides you with an update to your location on the board\nexit - Terminates the application\n");
+            Console.WriteLine("Hi, Welcome to the robot challenge\nYou are a robot on a 5x5 table placed on the South West corner\nThe inputs to play the game are\nmove - Will move you one step forward in the direction you are facing\nleft - Will change your direction 90 degrees to the Left\nright - Will change your direction 90 degrees to the Right\nreport - Provides you with an update to your location on the board\nexit - Terminates the application\n");
             Console.WriteLine();
             while (inGame)
             {
-                Console.WriteLine("Options: place, move, right, left, exit");
+                Console.WriteLine("_____oOOoo___ε(´סּ ˛ סּ`)з___оoOOo_____");
+                Console.WriteLine("Options: move, right, left, exit\n");
                 Console.WriteLine($"Current Facing Direction: {direction}");
-                Console.WriteLine($"X = {locX} | Y = {locY}");
+                Console.WriteLine($"X = {locX} | Y = {locY}\n");
                 Console.Write("Your Input: ");
                 input = Console.ReadLine();
                 HandleOptions();
@@ -30,74 +31,66 @@ namespace ToyRobot
         {
             switch (input.ToLower())
             {
-                case "place":
-                    Place();
-                    break;
                 case "move":
                     Move();
                     break;
                 case "right":
-                    Right();
+                    Turn();
                     break;
                 case "left":
-                    Left();
+                    Turn();
                     break;
-                //case "report":
-                //    Report();
-                //    break;
                 case "exit":
                     Exit();
                     break;
                 default:
-                    Console.WriteLine("Invalid input '{0}', try again", input);
+                    Console.WriteLine($"Invalid input '{input}', try again");
                     break;
             }
         }
-        static void Place()
+        static void Turn()
         {
-            locX = 0;
-            locY = 0;
-            direction = "north";
-        }
-        static void Right()
-        {
-            var dirIndex = directions.IndexOf(direction); // Find the index of the current direction
-            
-            dirIndex += 1; // Increment through the index by 1
-
-            if (dirIndex >= directions.Count) // Is indev greater or equal to the amount of elements in directions?
+            if(input == "right")
             {
-                direction = directions[0]; // If it is, set it to the first element in the array
-            }
-            else
-            {
-                direction = directions[dirIndex]; // Otherwise set it to the direction next in the array
-            }
-            Console.WriteLine($"You are now facing the direction {direction}");
-        }
-        static void Left()
-        {
-            var dirIndex = directions.IndexOf(direction);
+                var dirIndex = directions.IndexOf(direction); // Find the index of the current direction
 
-            dirIndex -= 1;
-            
-            if (dirIndex <= -1) 
-            {
-                direction = directions[3]; // Hard coded this, but im sure there is a better way to increment through the List
+                dirIndex += 1; // Increment through the index by 1
 
+                if (dirIndex >= directions.Count) // Is indev greater or equal to the amount of elements in directions?
+                {
+                    direction = directions[0]; // If it is, set it to the first element in the array
+                }
+                else
+                {
+                    direction = directions[dirIndex]; // Otherwise set it to the direction next in the array
+                }
+                Console.WriteLine($"You are now facing the direction {direction}");
             }
-            else
+            else if (input == "left")
             {
-                direction = directions[dirIndex];
-            }
+                var dirIndex = directions.IndexOf(direction);
 
-            Console.WriteLine($"You are now facing the direction {direction}");
+                dirIndex -= 1;
+
+                if (dirIndex <= -1)
+                {
+                    direction = directions[3]; // Hard coded this, but im sure there is a better way to increment through the List
+
+                }
+                else
+                {
+                    direction = directions[dirIndex];
+                }
+
+                Console.WriteLine($"You are now facing the direction {direction}");
+            }
         }
         static void Move()
         {
             if (WillFall()) // If WillFall returns true we reject the player falling off the table and making a move
             {
-                Console.WriteLine("Doing that will make you fall off the table");
+                Console.WriteLine("I’M SORRY DAVE, I’M AFRAID I CAN’T DO THAT");
+                Console.WriteLine("(You will fall off the table, please try again)\n");
                 return;
             }
             switch (direction) // Otherwise we Switch and increment/decrement through the X/Y coords moving across the table.
