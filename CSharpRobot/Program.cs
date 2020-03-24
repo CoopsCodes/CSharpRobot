@@ -10,23 +10,22 @@ namespace ToyRobot
         static string direction = "north";
         // List instantiates a set list of the directions so I can increment/decrement through them as the user selects left/right
         static List<string> directions = new List<string>() { "north", "east", "south", "west" };
-        static int locX = 0; // east/west
-        static int locY = 0; // north/south
+        static int locX = 2; // east/west
+        static int locY = 2; // north/south
         static void Main(string[] args)
         {
-            Console.WriteLine("Hi, Welcome to the robot challenge\nYou are a robot on a 5x5 table placed on the South West corner\nThe inputs to play the game are\nmove - Will move you one step forward in the direction you are facing\nleft - Will change your direction 90 degrees to the Left\nright - Will change your direction 90 degrees to the Right\nreport - Provides you with an update to your location on the board\nexit - Terminates the application\n");
+            Console.WriteLine("Hi, Welcome to the robot challenge\nYou are a robot on a 5x5 table placed on the Middle\nThe inputs to play the game are\nmove - Will move you one step forward in the direction you are facing\nleft - Will change your direction 90 degrees to the Left\nright - Will change your direction 90 degrees to the Right\nreport - Provides you with an update to your location on the board\nexit - Terminates the application\n");
             Console.WriteLine();
             while (inGame)
             {
-                Console.WriteLine("_____oOOoo___ε(´סּ ˛ סּ`)з___оoOOo_____");
-                Console.WriteLine("Options: move, right, left, exit\n");
-                Console.WriteLine($"Current Facing Direction: {direction}");
-                Console.WriteLine($"X = {locX} | Y = {locY}\n");
+                Console.WriteLine("-----------oOOoo___ε(´סּ ˛ סּ`)з___оoOOo--------------");
+                Console.WriteLine("Options: move, right, left, report, exit\n");
                 Console.Write("Your Input: ");
                 input = Console.ReadLine();
                 HandleOptions();
             }
         }
+
         static void HandleOptions()
         {
             switch (input.ToLower())
@@ -40,6 +39,9 @@ namespace ToyRobot
                 case "left":
                     Turn();
                     break;
+                case "report":
+                    Report();
+                    break;
                 case "exit":
                     Exit();
                     break;
@@ -48,6 +50,7 @@ namespace ToyRobot
                     break;
             }
         }
+
         static void Turn()
         {
             if(input == "right")
@@ -84,13 +87,20 @@ namespace ToyRobot
 
                 Console.WriteLine($"You are now facing the direction {direction}");
             }
+            else
+            {
+                Console.WriteLine("Please try again"); // This else is not needed as it will never reach here unless the input is left/right, but I always believe in some fallback error handling regardless
+            }
         }
+
         static void Move()
         {
             if (WillFall()) // If WillFall returns true we reject the player falling off the table and making a move
             {
+                Console.WriteLine("----------------------------------------------------");
                 Console.WriteLine("I’M SORRY DAVE, I’M AFRAID I CAN’T DO THAT");
                 Console.WriteLine("(You will fall off the table, please try again)\n");
+                Console.WriteLine("----------------------------------------------------\n");
                 return;
             }
             switch (direction) // Otherwise we Switch and increment/decrement through the X/Y coords moving across the table.
@@ -109,6 +119,15 @@ namespace ToyRobot
                     break;
             }
         }
+
+        static void Report()
+        {
+            Console.WriteLine("----------------------------------------------------");
+            Console.WriteLine($"Current Facing Direction: {direction}");
+            Console.WriteLine($"X = {locX} | Y = {locY}");
+            Console.WriteLine("----------------------------------------------------\n");
+        }
+
         static bool WillFall() // WillFall calculates if the robot will drop off the table and sets it to a boolean
         {
             switch (direction)
@@ -132,6 +151,7 @@ namespace ToyRobot
             }
             return false;
         }
+
         static void Exit()
         {
             Console.WriteLine("Thanks for playing 😊");
