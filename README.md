@@ -32,22 +32,18 @@ REPORT
 
 ## Example Input and Output
 
-### Example a
-PLACE 0,0,NORTH  
+### Example a 
 MOVE  
-REPORT  
 Expected output:  
 0,1,NORTH
 
-### Example b
-PLACE 0,0,NORTH  
+### Example b  
 LEFT  
 REPORT  
 Expected output:  
 0,0,WEST  
 
 ### Example c
-PLACE 1,2,EAST  
 MOVE  
 MOVE  
 LEFT  
