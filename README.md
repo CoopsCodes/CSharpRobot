@@ -49,3 +49,10 @@ MOVE
 REPORT  
 Expected output  
 3,3,NORTH  
+
+# Next Steps
+This Toy Robot is a constantly growing project as I learn my way through C#...
+
+Firstly:So the initial challenge asks for the user to place there 🤖 on X/Y coordinates, that is something I haven't implement as of yet but that is the first step.
+
+Secondly: I haven't spent any time learning how to Test in C# yat, that is also next on the list of things to complete.
